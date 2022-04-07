@@ -4,7 +4,7 @@
       "tableMusic": {
         "Type": "AWS::DynamoDB::Table",
         "Properties": {
-          "TableName": "Music-ZZ-REG-ID",
+          "TableName": "Music-Indulekha14",
           "AttributeDefinitions": [
             {
               "AttributeName": "music_id",
@@ -23,10 +23,33 @@
           }
         }
       },
+      "tablePlaylist": {
+        "Type": "AWS::DynamoDB::Table",
+        "Properties": {
+        "TableName": "Playlist-Indulekha14",
+        "AttributeDefinitions": [
+          {
+	    "AttributeName": "playlist_id",
+            "AttributeType": "S"
+           }
+          ],
+          "KeySchema": [
+	    {
+              "AttributeName": "playlist_id",
+	      "KeyType": "HASH"
+	    }
+	  ],
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": "5",
+            "WriteCapacityUnits": "5"
+          }
+        }
+      },	
+
       "tableUsers": {
         "Type": "AWS::DynamoDB::Table",
         "Properties": {
-          "TableName": "User-ZZ-REG-ID",
+          "TableName": "User-Indulekha14",
           "AttributeDefinitions": [
             {
               "AttributeName": "user_id",
@@ -46,5 +69,5 @@
         }
       }
     },
-    "Description": "DynamoDB tables for ZZ-AWS-ACCESS-KEY-ID"
+    "Description": "DynamoDB tables for AKIA2VL24V743UKENWXH"
   }
