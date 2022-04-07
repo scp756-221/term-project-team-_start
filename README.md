@@ -40,3 +40,6 @@ $ aws dynamodb list-tables
 The resulting output should include tables `User` and `Music`.
 
 
+### To be included
+
+gatling-music.sh requires 'USERS' and 'PAUSE' to be passed as arguments - to be set as environment variables in the container.
