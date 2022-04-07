@@ -31,7 +31,6 @@ IC=istioctl
 # Application versions
 # Override these by environment variables and `make -e`
 APP_VER_TAG=v1
-S2_VER=v1
 LOADER_VER=v1
 
 # Kubernetes parameters that most of the time will be unchanged
@@ -81,9 +80,9 @@ rollout-s1: s1
 	$(KC) rollout -n $(APP_NS) restart deployment/cmpt756s1
 
 # --- rollout-s2: Rollout a new deployment of S2
-rollout-s2: $(LOG_DIR)/s2-$(S2_VER).repo.log  cluster/s2-dpl-$(S2_VER).yaml
-	$(KC) -n $(APP_NS) apply -f cluster/s2-dpl-$(S2_VER).yaml | tee $(LOG_DIR)/rollout-s2.log
-	$(KC) rollout -n $(APP_NS) restart deployment/cmpt756s2-$(S2_VER) | tee -a $(LOG_DIR)/rollout-s2.log
+rollout-s2: $(LOG_DIR)/s2.repo.log  cluster/s2-dpl.yaml
+	$(KC) -n $(APP_NS) apply -f cluster/s2-dpl.yaml | tee $(LOG_DIR)/rollout-s2.log
+	$(KC) rollout -n $(APP_NS) restart deployment/cmpt756s2-$(APP_VER_TAG) | tee -a $(LOG_DIR)/rollout-s2.log
 
 # --- rollout-db: Rollout a new deployment of DB
 rollout-db: db
@@ -297,7 +296,7 @@ db: $(LOG_DIR)/db.repo.log cluster/awscred.yaml cluster/dynamodb-service-entry.y
 	$(KC) -n $(APP_NS) apply -f cluster/db-vs.yaml | tee -a $(LOG_DIR)/db.log
 
 # Build & push the images up to the CR
-cri: $(LOG_DIR)/s1.repo.log $(LOG_DIR)/s2-$(S2_VER).repo.log $(LOG_DIR)/db.repo.log
+cri: $(LOG_DIR)/s1.repo.log $(LOG_DIR)/s2.repo.log $(LOG_DIR)/db.repo.log
 
 # Build the s1 service
 $(LOG_DIR)/s1.repo.log: s1/Dockerfile s1/app.py s1/requirements.txt
@@ -306,10 +305,10 @@ $(LOG_DIR)/s1.repo.log: s1/Dockerfile s1/app.py s1/requirements.txt
 	$(DK) push $(CREG)/$(REGID)/cmpt756s1:$(APP_VER_TAG) | tee $(LOG_DIR)/s1.repo.log
 
 # Build the s2 service
-$(LOG_DIR)/s2-$(S2_VER).repo.log: s2/$(S2_VER)/Dockerfile s2/$(S2_VER)/app.py s2/$(S2_VER)/requirements.txt
+$(LOG_DIR)/s2.repo.log: s2/Dockerfile s2/app.py s2/requirements.txt
 	make -f k8s.mak --no-print-directory registry-login
-	$(DK) build $(ARCH) -t $(CREG)/$(REGID)/cmpt756s2:$(S2_VER) s2/$(S2_VER) | tee $(LOG_DIR)/s2-$(S2_VER).img.log
-	$(DK) push $(CREG)/$(REGID)/cmpt756s2:$(S2_VER) | tee $(LOG_DIR)/s2-$(S2_VER).repo.log
+	$(DK) build $(ARCH) -t $(CREG)/$(REGID)/cmpt756s2:$(APP_VER_TAG) s2 | tee $(LOG_DIR)/s2.img.log
+	$(DK) push $(CREG)/$(REGID)/cmpt756s2:$(APP_VER_TAG) | tee $(LOG_DIR)/s2.repo.log
 
 # Build the db service
 $(LOG_DIR)/db.repo.log: db/Dockerfile db/app.py db/requirements.txt
@@ -327,7 +326,7 @@ $(LOG_DIR)/loader.repo.log: loader/app.py loader/requirements.txt loader/Dockerf
 # the updated images to the registry
 cr: registry-login
 	$(DK) push $(CREG)/$(REGID)/cmpt756s1:$(APP_VER_TAG) | tee $(LOG_DIR)/s1.repo.log
-	$(DK) push $(CREG)/$(REGID)/cmpt756s2:$(S2_VER) | tee $(LOG_DIR)/s2.repo.log
+	$(DK) push $(CREG)/$(REGID)/cmpt756s2:$(APP_VER_TAG) | tee $(LOG_DIR)/s2.repo.log
 	$(DK) push $(CREG)/$(REGID)/cmpt756db:$(APP_VER_TAG) | tee $(LOG_DIR)/db.repo.log
 
 # ---------------------------------------------------------------------------------------
