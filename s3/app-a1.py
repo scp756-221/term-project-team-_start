@@ -1,7 +1,4 @@
-"""
-SFU CMPT 756
-Sample STANDALONE application---music service.
-"""
+
 
 # Standard library modules
 import csv
