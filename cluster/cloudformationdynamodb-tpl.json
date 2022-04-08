@@ -4,7 +4,7 @@
       "tableMusic": {
         "Type": "AWS::DynamoDB::Table",
         "Properties": {
-          "TableName": "Music-Indulekha14",
+          "TableName": "Music",
           "AttributeDefinitions": [
             {
               "AttributeName": "music_id",
@@ -26,7 +26,7 @@
       "tablePlaylist": {
         "Type": "AWS::DynamoDB::Table",
         "Properties": {
-        "TableName": "Playlist-Indulekha14",
+        "TableName": "Playlist",
         "AttributeDefinitions": [
           {
 	    "AttributeName": "playlist_id",
@@ -49,7 +49,7 @@
       "tableUsers": {
         "Type": "AWS::DynamoDB::Table",
         "Properties": {
-          "TableName": "User-Indulekha14",
+          "TableName": "User",
           "AttributeDefinitions": [
             {
               "AttributeName": "user_id",
@@ -69,5 +69,5 @@
         }
       }
     },
-    "Description": "DynamoDB tables for AKIA2VL24V743UKENWXH"
+    "Description": "DynamoDB tables for "
   }
