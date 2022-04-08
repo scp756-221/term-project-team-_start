@@ -4,6 +4,8 @@ s2-dpl-v*.yaml
 !s2-dpl-*-tpl.yaml
 s2-dpl.yaml
 !s2-dpl-tpl.yaml
+s3-dpl.yaml
+!s3-dpl-tpl.yaml
 loader.yaml
 db-nohealth.yaml
 s1-nohealth.yaml

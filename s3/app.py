@@ -1,6 +1,6 @@
 """
 SFU CMPT 756
-Sample application---music service.
+Sample application---playlist service.
 """
 
 # Standard library modules
@@ -70,7 +70,7 @@ def list_all():
 
 
 @bp.route('/<playlist_id>', methods=['GET'])
-def get_song(playlistt_id):
+def get_song(playlist_id):
     headers = request.headers
     # check header here
     if 'Authorization' not in headers:
@@ -109,7 +109,7 @@ def create_song():
 
 
 @bp.route('/<playlist_id>', methods=['DELETE'])
-def delete_song(playlists_id):
+def delete_song(playlist_id):
     headers = request.headers
     # check header here
     if 'Authorization' not in headers:
