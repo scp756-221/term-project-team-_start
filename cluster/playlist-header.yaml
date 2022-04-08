@@ -1,7 +1,7 @@
-# Header for ConfigMap built from music.csv
+# Header for ConfigMap built from playlist.csv
 apiVersion: v1
 kind: ConfigMap
 metadata:
- name: playlist
+  name: playlist
 data:
- playlist.csv: |
+  playlist.csv: |
