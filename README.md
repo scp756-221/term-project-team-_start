@@ -36,7 +36,17 @@ directly. This creates all the non-templated files, such as
 `k8s.mak`.  You will use the non-templated makefiles in all the
 remaining steps.
 
-### 2. Ensure AWS DynamoDB is accessible/running
+### 3. Start the cluster
+
+Depending on the vendor you use, start using the provided make file.
+
+~~~
+$ make -f <VENDOR>.mak start
+~~~
+
+`<VENDOR>` can be `mk` (Minikube), `az` (Azure), `eks` (Amazon), or `gcp` (Google).
+
+### 4. Ensure AWS DynamoDB is accessible/running
 
 Regardless of where your cluster will run, it uses AWS DynamoDB
 for its backend database. Check that you have the necessary tables
