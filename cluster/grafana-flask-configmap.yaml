@@ -613,6 +613,12 @@ data:
               "interval": "",
               "legendFormat": "cmpt756s2",
               "refId": "C"
+            }，
+            {
+              "expr": "sum(rate(flask_http_request_duration_seconds_sum{status=\"200\",service=\"cmpt756s2\"}[1m]))\n/\nsum(rate(flask_http_request_duration_seconds_count{status=\"200\",service=\"cmpt756s2\"}[1m]))",
+              "interval": "",
+              "legendFormat": "cmpt756s3",
+              "refId": "C"
             }
           ],
           "thresholds": [],
