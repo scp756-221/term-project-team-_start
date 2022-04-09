@@ -7,7 +7,7 @@ docker container run --detach --rm \
   -e CLUSTER_IP=`tools/getip.sh kubectl istio-system svc/istio-ingressgateway` \
   -e USERS=${1} \
   -e PAUSE=${2} \
-  -e SIM_NAME=ReadPlaylistSim \
+  -e SIM_NAME=Read${3}Sim \
   --label gatling \
   ghcr.io/scp-2021-jan-cmpt-756/gatling:3.4.2 \
-  -s proj756.ReadPlaylistSim
+  -s proj756.Read${3}Sim
