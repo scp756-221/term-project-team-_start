@@ -89,20 +89,11 @@ $ make -f k8s.mak cri
 
 Once complete, go to github, under *packages* make the images public
 
-### 4. Deploy to the cluster
-
-Now we are finally ready to deploy our services to the cluster. Do so by running:
-
-~~~
-$ istioctl install --set profile=demo -y
-$ make -f k8s.mak gw db s1 s2 s3
-~~~
-
 ## Monitoring
 
 Three tools will be used to monitor the distributed application and microservices: Grafana, Prometheus and Kiali
 
-### Provision the cluster
+### Deploy and Provision
 
 First, copy your GitHub Repository token to `cluster/ghcr.io-token.txt`.
 
