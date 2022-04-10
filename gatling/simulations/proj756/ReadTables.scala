@@ -47,9 +47,9 @@ object RPlaylist {
 
   val feeder = csv("playlist.csv").eager.random
 
-  val rplaylist = repeat(1, "i") {
+  // val rplaylist = repeat(1, "i") {
 
-  // val rplaylist = forever("i") {
+  val rplaylist = forever("i") {
     feed(feeder)
     .exec(http("RPlaylist ${i}")
       .get("/api/v1/playlist/${UUID}"))
