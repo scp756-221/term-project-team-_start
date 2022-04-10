@@ -53,6 +53,7 @@ for its backend database. Check that you have the necessary tables
 installed by running
 
 ~~~
+$ make -f k8s.mak dynamodb-init
 $ aws dynamodb list-tables
 ~~~
 
@@ -94,8 +95,7 @@ Now we are finally ready to deploy our services to the cluster. Do so by running
 
 ~~~
 istioctl install --set profile=demo -y
-make -f k8s.mak dynamodb-init
-make -f k8s.mak gw db s2 s3 s1
+make -f k8s.mak gw db s1 s2 s3
 ~~~
 
 ## Monitoring
