@@ -36,7 +36,23 @@ directly. This creates all the non-templated files, such as
 `k8s.mak`.  You will use the non-templated makefiles in all the
 remaining steps.
 
-### 2. Ensure AWS DynamoDB is accessible/running
+### 3. Start the cluster
+
+Depending on the vendor you use, start using the provided make file.
+
+~~~
+$ make -f <VENDOR>.mak start
+~~~
+
+`<VENDOR>` can be `mk` (Minikube), `az` (Azure), `eks` (Amazon), or `gcp` (Google).
+
+### 4. Create the DynamoDB tables
+
+~~~
+aws cloudformation create-stack --stack-name DynamoDB --template-body file://<Path-to-Repository>/term-project-team-_start/cluster/cloudformationdynamodb.json
+~~~
+
+### 5. Ensure AWS DynamoDB is accessible/running
 
 Regardless of where your cluster will run, it uses AWS DynamoDB
 for its backend database. Check that you have the necessary tables
@@ -47,6 +63,16 @@ $ aws dynamodb list-tables
 ~~~
 
 The resulting output should include tables `User` and `Music`.
+
+### 5. Provision the cluster
+
+First, copy your GitHub Repository token to `cluster/ghcr.io-token.txt`.
+
+Install istio, kiali, and their dependencies by running
+
+~~~
+$ make -f k8s.mak provision
+~~~
 
 
 ### To be included
