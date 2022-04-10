@@ -58,6 +58,16 @@ $ aws dynamodb list-tables
 
 The resulting output should include tables `User` and `Music`.
 
+### 5. Provision the cluster
+
+First, copy your GitHub Repository token to `cluster/ghcr.io-token.txt`.
+
+Install istio, kiali, and their dependencies by running
+
+~~~
+$ make -f k8s.mak provision
+~~~
+
 
 ### To be included
 
