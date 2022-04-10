@@ -43,7 +43,7 @@ remaining steps.
 ### 1. Create the DynamoDB tables
 
 ~~~
-aws cloudformation create-stack --stack-name DynamoDB --template-body file://<Path-to-Repository>/term-project-team-_start/cluster/cloudformationdynamodb.json
+$ aws cloudformation create-stack --stack-name DynamoDB --template-body file://<Path-to-Repository>/term-project-team-_start/cluster/cloudformationdynamodb.json
 ~~~
 
 ### 2. Ensure AWS DynamoDB is accessible/running
@@ -74,9 +74,9 @@ $ make -f <VENDOR>.mak start
 EKS cluster context name is **aws756**. Use the context-name for `kubectl` to create namespace:
 
 ~~~
-kubectl config use-context aws756
-kubectl create ns c756ns
-kubectl config set-context aws756 --namespace=c756ns
+$ kubectl config use-context aws756
+$ kubectl create ns c756ns
+$ kubectl config set-context aws756 --namespace=c756ns
 ~~~
 
 ### 3. Building docker images and pushing to github container registry
@@ -84,7 +84,7 @@ kubectl config set-context aws756 --namespace=c756ns
 Build images for the database service, three micro services, and the loader
 
 ~~~
-make -f k8s.mak cri
+$ make -f k8s.mak cri
 ~~~
 
 Once complete, go to github, under *packages* make the images public
@@ -94,8 +94,8 @@ Once complete, go to github, under *packages* make the images public
 Now we are finally ready to deploy our services to the cluster. Do so by running:
 
 ~~~
-istioctl install --set profile=demo -y
-make -f k8s.mak gw db s1 s2 s3
+$ istioctl install --set profile=demo -y
+$ make -f k8s.mak gw db s1 s2 s3
 ~~~
 
 ## Monitoring
@@ -117,7 +117,7 @@ $ make -f k8s.mak provision
 Get Grafana URL, run:
 
 ~~~
-make -f k8s.mak grafana-url
+$ make -f k8s.mak grafana-url
 ~~~
 
 Click the url and login with:
@@ -132,15 +132,15 @@ Select “Browse” from the menu. This will bring up a list of dashboards. Clic
 Get Prometheus URL, run:
 
 ~~~
-make -f k8s.mak prometheus-url
+$ make -f k8s.mak prometheus-url
 ~~~
 
 ### 3. Kiali
 Get Kiali URL, run:
 
 ~~~
-make -f k8s.mak kiali
-make -f k8s.mak kiali-url
+$ make -f k8s.mak kiali
+$ make -f k8s.mak kiali-url
 ~~~
 
 ### To be included
