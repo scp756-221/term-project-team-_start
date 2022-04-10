@@ -46,7 +46,13 @@ $ make -f <VENDOR>.mak start
 
 `<VENDOR>` can be `mk` (Minikube), `az` (Azure), `eks` (Amazon), or `gcp` (Google).
 
-### 4. Ensure AWS DynamoDB is accessible/running
+### 4. Create the DynamoDB tables
+
+~~~
+aws cloudformation create-stack --stack-name DynamoDB --template-body file://<Path-to-Repository>/term-project-team-_start/cluster/cloudformationdynamodb.json
+~~~
+
+### 5. Ensure AWS DynamoDB is accessible/running
 
 Regardless of where your cluster will run, it uses AWS DynamoDB
 for its backend database. Check that you have the necessary tables
