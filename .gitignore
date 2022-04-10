@@ -141,3 +141,4 @@ allclouds.mak
 api.mak
 .DS_Store
 __pycache__
+cluster/s*-nohealth.yaml
