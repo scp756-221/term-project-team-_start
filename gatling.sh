@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 docker container run --detach --rm \
-  --name gatling \
   -v ${PWD}/gatling/results:/opt/gatling/results \
   -v ${PWD}/gatling:/opt/gatling/user-files \
   -v ${PWD}/gatling/target:/opt/gatling/target \
