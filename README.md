@@ -79,7 +79,7 @@ $ kubectl create ns c756ns
 $ kubectl config set-context aws756 --namespace=c756ns
 ~~~
 
-### 3. Building docker images and pushing to github container registry
+### 5. Building docker images and pushing to github container registry
 
 Build images for the database service, three micro services, and the loader
 
@@ -89,21 +89,21 @@ $ make -f k8s.mak cri
 
 Once complete, go to github, under *packages* make the images public
 
-## Monitoring
+## 6. Monitoring
 
 Three tools will be used to monitor the distributed application and microservices: Grafana, Prometheus and Kiali
 
-### Deploy and Provision
+### 7. Provision and Deploy
 
 First, copy your GitHub Repository token to `cluster/ghcr.io-token.txt`.
 
-Install istio, kiali, and their dependencies by running
+Install istio, prometheus, kiali, and their dependencies; and deploy the microservices by running
 
 ~~~
 $ make -f k8s.mak provision
 ~~~
 
-###  1. Grafana
+### 8. Grafana
 
 Get Grafana URL, run:
 
@@ -118,7 +118,7 @@ Click the url and login with:
 After signon, in Grafana home screen, aavigate to the dashboard by hovering on the “Dashboards” icon on the left.
 Select “Browse” from the menu. This will bring up a list of dashboards. Click on c756 transactions.
 
-###  2. Prometheus
+### 9. Prometheus
 
 Get Prometheus URL, run:
 
@@ -126,7 +126,7 @@ Get Prometheus URL, run:
 $ make -f k8s.mak prometheus-url
 ~~~
 
-### 3. Kiali
+### 10. Kiali
 Get Kiali URL, run:
 
 ~~~
@@ -134,6 +134,21 @@ $ make -f k8s.mak kiali
 $ make -f k8s.mak kiali-url
 ~~~
 
-### To be included
+### 11. Load testing the services
+Use Gatling for simulating high traffic for various services. The supported service_name values are: 'User', 'Music', 'Playlist', 'All'.
 
-gatling-music.sh requires 'USERS' and 'PAUSE' to be passed as arguments - to be set as environment variables in the container.
+~~~
+$ ./gatling.sh <number_of_users> <pause_between_runs> <service_name>
+~~~
+
+For instance, to run all services for 100 users every 10ms:
+
+~~~
+$ ./gatling.sh 100 10 All
+~~~
+
+To stop all running Gatling jobs:
+
+~~~
+$ ./tools/kill-gatling.sh
+~~~
